@@ -106,6 +106,12 @@ public class InvoiceTest {
     }
 
     @Test
+    public void testAddInvoiceNumber() {
+        int invoiceNumber = invoice.getNumber();
+        Assert.assertTrue(invoiceNumber > 0);
+    }
+
+    @Test
     public void testInvoiceHasNumberGreaterThan0() {
         int number = invoice.getNumber();
         Assert.assertThat(number, Matchers.greaterThan(0));
