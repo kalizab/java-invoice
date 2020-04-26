@@ -46,4 +46,20 @@ public class Invoice {
     public int getNumber() {
         return number;
     }
+
+    public String getInvoiceProductsList(){
+        StringBuilder productsListString = new StringBuilder();
+        productsListString.append(getNumber()).append("\n");
+        for (Product product : products.keySet()) {
+            String productName = product.getName();
+            BigDecimal productPrice = product.getPrice();
+
+            productsListString.append(" | ").append(productName);
+            productsListString.append(" | ").append(products.get(product));
+            productsListString.append(" | ").append(productPrice).append(" | \n");
+        }
+        productsListString.append("Liczba pozycji: ").append(products.size());
+
+        return productsListString.toString();
+    }
 }

@@ -129,4 +129,17 @@ public class InvoiceTest {
         int number2 = new Invoice().getNumber();
         Assert.assertThat(number1, Matchers.lessThan(number2));
     }
+
+    @Test
+    public void testListOfProductsAddedToInvoice(){
+        // 2x kubek - price: 10
+        invoice.addProduct(new TaxFreeProduct("Kubek", new BigDecimal("5")), 2);
+        // 3x kozi serek - price: 30
+        invoice.addProduct(new DairyProduct("Kozi Serek", new BigDecimal("10")), 3);
+        // 1000x pinezka - price: 10
+        invoice.addProduct(new OtherProduct("Pinezka", new BigDecimal("0.01")), 1000);
+
+        String invoiceProductsList = invoice.getInvoiceProductsList();
+//        Assert.assertEquals(invoiceProductsList, "");
+    }
 }
