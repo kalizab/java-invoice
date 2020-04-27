@@ -18,7 +18,7 @@ public class Invoice {
         if (product == null || quantity <= 0) {
             throw new IllegalArgumentException();
         }
-        if (products.isEmpty()){
+        else if (products.isEmpty()){
             products.put(product, quantity);
         }
         else {
@@ -26,13 +26,13 @@ public class Invoice {
             for (Product existProduct : products.keySet()) {
                 String productName = product.getName();
                 String existProductName = existProduct.getName();
-                if (productName.equals(existProductName)){
+                if (productName.equals(existProductName)) {
                     status = true;
                     int newProductQuantity = products.get(existProduct) + quantity;
                     products.replace(existProduct, newProductQuantity);
                 }
             }
-            if (!status){
+            if (!status) {
                 products.put(product, quantity);
             }
         }
@@ -64,7 +64,7 @@ public class Invoice {
         return number;
     }
 
-    public String getInvoiceProductsList(){
+    public String getInvoiceProductsList() {
         StringBuilder productsListString = new StringBuilder();
         productsListString.append("Numer faktury: ").append(getNumber()).append("\n");
         for (Product product : products.keySet()) {

@@ -167,7 +167,6 @@ public class InvoiceTest {
         invoice.addProduct(new TaxFreeProduct("Kubek", new BigDecimal("5")), 1);
 
         String invoiceProductsList = invoice.getInvoiceProductsList();
-        System.out.print(invoiceProductsList);
         Assert.assertThat(invoiceProductsList, Matchers.containsString("| 8 |"));
     }
 
