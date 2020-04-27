@@ -146,6 +146,50 @@ public class InvoiceTest {
         invoice.addProduct(new OtherProduct("Pinezka", new BigDecimal("0.01")), 1000);
 
         String invoiceProductsList = invoice.getInvoiceProductsList();
-//        Assert.assertEquals(invoiceProductsList, "");
+        Assert.assertThat(invoiceProductsList, Matchers.containsString("| Kubek | 2 | 5 |"));
+        Assert.assertThat(invoiceProductsList, Matchers.containsString("| Kozi Serek | 3 | 10 | "));
+        Assert.assertThat(invoiceProductsList, Matchers.containsString("| Pinezka | 1000 | 0.01 | "));
+        Assert.assertThat(invoiceProductsList, Matchers.containsString("Liczba pozycji: 3"));
+    }
+
+    @Test
+    public void testTwoTheSameProductShouldBeAsOnePositionOnInvoice(){
+        invoice.addProduct(new TaxFreeProduct("Kubek", new BigDecimal("5")), 1);
+        invoice.addProduct(new TaxFreeProduct("Kubek", new BigDecimal("5")), 1);
+
+        String invoiceProductsList = invoice.getInvoiceProductsList();
+        Assert.assertThat(invoiceProductsList, Matchers.containsString("Liczba pozycji: 1"));
+    }
+
+    @Test
+    public void testTwoTheSameProductShouldHaveProperQuantityValue(){
+        invoice.addProduct(new TaxFreeProduct("Kubek", new BigDecimal("5")), 7);
+        invoice.addProduct(new TaxFreeProduct("Kubek", new BigDecimal("5")), 1);
+
+        String invoiceProductsList = invoice.getInvoiceProductsList();
+        System.out.print(invoiceProductsList);
+        Assert.assertThat(invoiceProductsList, Matchers.containsString("| 8 |"));
+    }
+
+    @Test
+    public void testInvoiceShouldTwoTheSameProductAndOneDifferentShouldBeAsTwoPositionOnInvoice(){
+        invoice.addProduct(new TaxFreeProduct("Kubek", new BigDecimal("5")), 1);
+        invoice.addProduct(new TaxFreeProduct("Kubek", new BigDecimal("5")), 3);
+        invoice.addProduct(new TaxFreeProduct("Bułka", new BigDecimal("2")), 3);
+
+        String invoiceProductsList = invoice.getInvoiceProductsList();
+        Assert.assertThat(invoiceProductsList, Matchers.containsString("Liczba pozycji: 2"));
+    }
+
+    @Test
+    public void testInvoiceShouldHaveTwoPositionForFourProducts(){
+        invoice.addProduct(new TaxFreeProduct("Kubek", new BigDecimal("5")), 1);
+        invoice.addProduct(new TaxFreeProduct("Kubek", new BigDecimal("5")), 3);
+
+        invoice.addProduct(new TaxFreeProduct("Garnek", new BigDecimal("4")), 3);
+        invoice.addProduct(new TaxFreeProduct("Garnek", new BigDecimal("4")), 7);
+
+        String invoiceProductsList = invoice.getInvoiceProductsList();
+        Assert.assertThat(invoiceProductsList, Matchers.containsString("Liczba pozycji: 2"));
     }
 }
