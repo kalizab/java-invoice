@@ -17,9 +17,9 @@ public class Invoice {
     public void addProduct(Product product, Integer quantity) {
         if (product == null || quantity <= 0) {
             throw new IllegalArgumentException();
-        }
-        else if (products.isEmpty()) { products.put(product, quantity); }
-        else {
+        } else if (products.isEmpty()) {
+            products.put(product, quantity);
+        } else {
             boolean status = false;
             for (Product existProduct : products.keySet()) {
                 String productName = product.getName();
@@ -30,7 +30,9 @@ public class Invoice {
                     products.replace(existProduct, newProductQuantity);
                 }
             }
-            if (!status) { products.put(product, quantity); }
+            if (!status) {
+                products.put(product, quantity);
+            }
         }
     }
 
