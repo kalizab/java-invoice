@@ -3,7 +3,6 @@ package pl.edu.agh.mwo.invoice;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
-
 import pl.edu.agh.mwo.invoice.product.Product;
 
 public class Invoice {
@@ -19,7 +18,6 @@ public class Invoice {
         if (product == null || quantity <= 0) {
             throw new IllegalArgumentException();
         }
-
         if (products.isEmpty()){
             products.put(product, quantity);
         }
@@ -72,13 +70,11 @@ public class Invoice {
         for (Product product : products.keySet()) {
             String productName = product.getName();
             BigDecimal productPrice = product.getPrice();
-
             productsListString.append(" | ").append(productName);
             productsListString.append(" | ").append(products.get(product));
             productsListString.append(" | ").append(productPrice).append(" | \n");
         }
         productsListString.append("Liczba pozycji: ").append(products.size());
-
         return productsListString.toString();
     }
 }
